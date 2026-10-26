@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HeatShield AI</title>
+    <meta
+      name="description"
+      content="HeatShield AI dashboard for climate risk, warming projections, and thermal material guidance."
+    >
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/heatshield.css">
+    <script src="/heatshield.js" defer></script>
+  </head>
+  <body class="heatshield-page">
+    <div class="site-shell harness-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="HeatShield AI home">
+          <span class="brand-mark" aria-hidden="true">H</span>
+          <span>HEAT<span class="brand-light">SHIELD AI</span></span>
+        </a>
+      </header>
+
+      <main class="heatshield-layout">
+        <section class="analysis-panel">
+          <p class="eyebrow"><span class="live-dot"></span> CLIMATE RISK ANALYTICS</p>
+          <h1>HeatShield AI</h1>
+          <p class="hero-description">
+            Assess historical warming, future climate pathways, and thermal-stress guidance for a specific site.
+          </p>
+          <p class="country-label" id="country-label">Country will be identified from the coordinates.</p>
+
+          <form id="heatshield-form" class="heatshield-form">
+            <div class="field-group">
+              <label for="latitude">Latitude</label>
+              <input id="latitude" name="latitude" type="number" min="-90" max="90" step="0.01" value="37.5" required>
+            </div>
+            <div class="field-group">
+              <label for="longitude">Longitude</label>
+              <input id="longitude" name="longitude" type="number" min="-180" max="180" step="0.01" value="-122.25" required>
+            </div>
+            <button type="submit" class="search-button heatshield-button">Analyze site</button>
+            <button type="button" id="use-location" class="location-button">Use my location</button>
+          </form>
+
+          <div id="status-box" class="status-message heatshield-status" role="status" aria-live="polite">
+            <span class="status-orbit" aria-hidden="true">✳</span>
+            <p>Enter a site to run the HeatShield risk model.</p>
+          </div>
+        </section>
+
+        <section class="results-panel">
+          <div class="summary-grid">
+            <article class="metric-card accent">
+              <span class="label">Baseline avg</span>
+              <strong id="baseline-average">--</strong>
+              <small id="baseline-period">1981–1990</small>
+            </article>
+            <article class="metric-card">
+              <span class="label">Recent avg</span>
+              <strong id="recent-average">--</strong>
+              <small id="recent-period">2015–2025</small>
+            </article>
+            <article class="metric-card warn">
+              <span class="label">Warming delta</span>
+              <strong id="warming-delta">--</strong>
+              <small>relative to baseline</small>
+            </article>
+          </div>
+
+          <div class="risk-box">
+            <div>
+              <p class="eyebrow section-eyebrow">THERMAL STRESS</p>
+              <h2 id="stress-tier">Moderate</h2>
+            </div>
+            <div class="risk-score-wrap">
+              <div class="score-ring">
+                <span id="stress-score">--</span>
+              </div>
+            </div>
+          </div>
+
+          <section class="indicator-section" aria-labelledby="indicator-heading">
+            <p class="eyebrow section-eyebrow">RECENT CLIMATE INDICATORS</p>
+            <h2 id="indicator-heading">More than temperature</h2>
+            <div class="indicator-grid">
+              <article><span>Relative humidity</span><strong id="humidity-value">--</strong></article>
+              <article><span>Annual precipitation</span><strong id="precipitation-value">--</strong></article>
+              <article><span>Wind speed</span><strong id="wind-value">--</strong></article>
+              <article><span>Root-zone soil wetness</span><strong id="soil-value">--</strong></article>
+              <article><span>Warm-month heat index</span><strong id="heat-index-value">--</strong></article>
+            </div>
+            <p class="indicator-note">Recent indicator values use the available 2015–2025 record. Soil wetness is a NASA POWER model-derived fraction, not a direct soil probe measurement.</p>
+          </section>
+
+          <div class="prescription-card">
+            <p class="eyebrow section-eyebrow">SMART MATERIAL PRESCRIPTION</p>
+            <h3 id="material-name">--</h3>
+            <p id="material-summary">--</p>
+            <div class="chip-row" id="material-materials"></div>
+            <div class="efficiency-row">
+              <span>Energy savings</span>
+              <strong id="energy-savings">--</strong>
+            </div>
+            <div class="efficiency-row">
+              <span>Implementation</span>
+              <strong id="implementation-difficulty">--</strong>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <section class="projection-section">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow section-eyebrow">FUTURE PROJECTIONS</p>
+            <h2>Projected climate pathways</h2>
+          </div>
+        </div>
+
+        <div class="projection-grid" id="projection-grid"></div>
+        <p class="outlook-note" id="outlook-note">
+          Climate outlooks are simplified trend extrapolations, not local weather forecasts or official climate-model projections.
+        </p>
+        <div class="table-scroll">
+          <table class="outlook-table">
+            <thead>
+              <tr>
+                <th>Horizon</th>
+                <th>Moderate temp.</th>
+                <th>High-emission temp.</th>
+                <th>Humidity</th>
+                <th>Rainfall / year</th>
+                <th>Wind</th>
+                <th>Soil wetness</th>
+                <th>Heat index</th>
+              </tr>
+            </thead>
+            <tbody id="outlook-rows">
+              <tr><td colspan="8">Run a site analysis to see outlook estimates.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
